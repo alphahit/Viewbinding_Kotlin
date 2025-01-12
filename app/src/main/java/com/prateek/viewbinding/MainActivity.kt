@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         //onCreate: Called when the activity is created.
 
 
-        enableEdgeToEdge()
+
         binding = ActivityMainBinding.inflate(layoutInflater)
 //        Inflates the activity_main.xml layout.
 //        Creates an instance of ActivityMainBinding.
@@ -34,10 +34,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         //Sets the root view of activity_main.xml as the content view for this activity.
 
+        enableEdgeToEdge()
+        val myBank: Int = 1000
 
-//        if(binding.dollarText.text.isNotEmpty()){
-//
-//        }
+
+        val dollarValue = myBank * 0.012 // Implicitly uses Double
+        binding.usdText.text = String.format("%.2f$", dollarValue) // Formats to 2 decimal places
+
+        binding.inrText.text = "${myBank.toString()}₹"
     }
 }
 

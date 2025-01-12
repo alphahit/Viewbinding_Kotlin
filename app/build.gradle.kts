@@ -7,6 +7,11 @@ android {
     namespace = "com.prateek.viewbinding"
     compileSdk = 35
 
+    // Enable View Binding (only one line needed)
+    buildFeatures {
+        viewBinding = true
+    }
+
     defaultConfig {
         applicationId = "com.prateek.viewbinding"
         minSdk = 35
@@ -34,10 +39,7 @@ android {
         jvmTarget = "11"
     }
 
-    // Enable View Binding (only one line needed)
-    buildFeatures {
-        viewBinding = true
-    }
+
 
 }
 

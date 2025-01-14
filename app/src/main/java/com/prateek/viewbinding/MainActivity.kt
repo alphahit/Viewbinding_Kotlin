@@ -3,6 +3,7 @@ package com.prateek.viewbinding
 //The package name is a unique namespace for the code and typically reflects the app's domain name in reverse (e.g., com.prateek).
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 //Enables edge-to-edge rendering of the app's UI, extending content behind system bars (requires the androidx.activity library).
 import androidx.appcompat.app.AppCompatActivity
@@ -12,7 +13,7 @@ import com.prateek.viewbinding.databinding.ActivityMainBinding
 // This is the binding class for the activity_main.xml layout file. This class is generated because View Binding is enabled.
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), View.OnClickListener {
 //MainActivity is the entry point of the app, extending AppCompatActivity. The AppCompatActivity class ensures compatibility with older Android versions.
 
 
@@ -20,10 +21,12 @@ class MainActivity : AppCompatActivity() {
     //lateinit means the variable will be initialized later. It avoids null values and initialization in the constructor.
     //binding is an instance of ActivityMainBinding, which gives access to the views in activity_main.xml.
 
+
+    private var value = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //onCreate: Called when the activity is created.
-
 
 
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -42,6 +45,65 @@ class MainActivity : AppCompatActivity() {
         binding.usdText.text = String.format("%.2f$", dollarValue) // Formats to 2 decimal places
 
         binding.inrText.text = "${myBank.toString()}₹"
+
+
+
+
+
+        binding.btnAdd.setOnClickListener(this)
+        binding.btnTake.setOnClickListener(this)
+        binding.btnGrow.setOnClickListener(this)
+        binding.btnShrink.setOnClickListener(this)
+        binding.btnReset.setOnClickListener(this)
+        binding.btnHide.setOnClickListener(this)
+        binding.btnAdd.setOnClickListener(this)
+
+
+    }
+
+    override fun onClick(p0: View?) {
+        val size: Float
+        if (p0 != null) {
+            when (p0.id) {
+                R.id.btnAdd -> {
+                    value++
+                    binding.myTextView.text = "$value"
+                }
+
+                R.id.btnGrow -> {
+                    size = binding.myTextView.textScaleX
+                    binding.myTextView.textScaleX = size + 1
+                }
+
+                R.id.btnShrink -> {
+                    size = binding.myTextView.textScaleX
+                    binding.myTextView.textScaleX = size - 1
+                }
+
+                R.id.btnHide -> {
+                    if (binding.myTextView.visibility == View.VISIBLE) {
+                        binding.myTextView.visibility = View.INVISIBLE
+                        binding.btnHide.text = "Show"
+                    } else {
+                        binding.myTextView.visibility = View.VISIBLE
+                        binding.btnHide.text = "Hide"
+                    }
+
+                }
+
+                R.id.btnTake -> {
+                    value--
+                    binding.myTextView.text = "$value"
+                }
+
+                R.id.btnReset -> {
+                    value = 0
+                    binding.myTextView.text = "$value"
+                }
+
+            }
+        }
+
     }
 }
 
